@@ -2,6 +2,7 @@ const express = require('express');
 const asyncHandler = require('express-async-handler')
 const router = express.Router();
 const User = require('../model/userModel')
+const md5 = require('md5')
 
 
 
@@ -27,7 +28,7 @@ router.post('/register', asyncHandler( async (req,res) => {
     const user = await User.create({
         name,
         email,
-        password
+        password : md5(password)
     })
 
     if(user){
@@ -52,7 +53,7 @@ router.post('/login',asyncHandler( async (req,res) => {
 
     const user = await User.findOne({email : email})
 
-    if(user && password === user.password){
+    if(user && md5(password) === user.password){
         res.status(200).json({
             name: user.name,
             email : user.email,
