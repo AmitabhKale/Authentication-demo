@@ -1,7 +1,9 @@
+require('dotenv').config();
 const express = require('express');
 const connectDB = require('./config/db');
 const { errorHandler } = require('./middleware/errorMiddleware');
 const userRoutes = require('./routes/userRoutes')
+    
 
 // Initialize
 const app = express();
